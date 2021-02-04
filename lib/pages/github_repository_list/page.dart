@@ -51,7 +51,12 @@ class GithubRepositoryListPageState extends State<GithubRepositoryListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('РЕЗУЛЬТАТ ПОИСКА'),
+        iconTheme: IconThemeData(color: Colors.black),
+        centerTitle: true,
+        toolbarHeight: 50,
+      ),
       body: BlocBuilder<GithubRepositoryListCubit, GithubRepositoryListState>(
         builder: (context, state) {
           if (state is GithubRepositoryListError) {
