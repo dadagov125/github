@@ -6,12 +6,14 @@ import 'package:github_repo/repositories/github.repository/github.repository.dar
 
 class MyApp extends StatelessWidget {
   List<RepositoryProvider> _buildRepositories() {
-    return [RepositoryProvider(create: (_) => GithubRepository())];
+    return [
+      RepositoryProvider<GithubRepository>(create: (_) => GithubRepository())
+    ];
   }
 
   List<BlocProvider> _buildBlocs() {
     return [
-      BlocProvider(
+      BlocProvider<GithubRepositoryListCubit>(
           create: (context) =>
               GithubRepositoryListCubit(context.read<GithubRepository>()))
     ];
@@ -24,12 +26,21 @@ class MyApp extends StatelessWidget {
         child: MultiBlocProvider(
             providers: _buildBlocs(),
             child: MaterialApp(
-              title: 'Flutter Demo',
               theme: ThemeData(
-                primarySwatch: Colors.blue,
+                scaffoldBackgroundColor: Colors.white,
+                appBarTheme: AppBarTheme(
+                    color: Colors.white,
+                    elevation: 0.7,
+                    shadowColor: Color.fromRGBO(223, 223, 223, 1),
+                    iconTheme: IconThemeData(color: Colors.black),
+                    textTheme: TextTheme(
+                        headline6: TextStyle(
+                            fontSize: 14,
+                            color: Color.fromRGBO(0, 0, 0, 1),
+                            fontWeight: FontWeight.w600))),
                 visualDensity: VisualDensity.adaptivePlatformDensity,
               ),
-              home: MyHomePage(title: 'Flutter Demo Home Page'),
+              home: MyHomePage(title: 'Поиск'),
             )));
   }
 }

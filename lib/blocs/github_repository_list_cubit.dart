@@ -13,21 +13,26 @@ class GithubRepositoryListCubit extends Cubit<GithubRepositoryListState> {
 
   final GithubRepository githubRepository;
 
-  loadRepositoryList() async {
-    emit(GithubRepositoryListLoading());
-    await _loadRepositoryList(GithubRepositorySearchRequest());
+  loadRepositoryList(String query) async {
+    emit(GithubRepositoryListLoading(query));
+    await _loadRepositoryList(GithubRepositorySearchRequest(query: query));
   }
 
-  loadNextRepositoryList(String query, num skip, num take) async {
-    await _loadRepositoryList(GithubRepositorySearchRequest());
+  loadNextRepositoryList() async {
+    if (state is GithubRepositoryListLoaded) {
+      var loadedState = state as GithubRepositoryListLoaded;
+      emit(GithubRepositoryListNexLoading(loadedState.query, loadedState.list));
+      await _loadRepositoryList(GithubRepositorySearchRequest(
+          query: loadedState.query, page: loadedState.list.items.length));
+    }
   }
 
   _loadRepositoryList(GithubRepositorySearchRequest request) async {
     try {
       var repositoryList = await githubRepository.getAll(request: request);
-      emit(GithubRepositoryListLoaded(repositoryList));
+      emit(GithubRepositoryListLoaded(request.query, repositoryList));
     } on AppException catch (e) {
-      emit(GithubRepositoryListError(e.toString()));
+      emit(GithubRepositoryListError(request.query, e.toString()));
     }
   }
 }

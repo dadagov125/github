@@ -7,12 +7,15 @@ import 'package:github_repo/repositories/github.repository/github_repository_sea
 import 'package:http/http.dart' as http;
 
 class GithubRepository {
-  final String url = '${githubApi}/search';
+  final String url = '${githubApi}/search/repositories';
 
   Future<GithubRepositoryList> getAll(
       {GithubRepositorySearchRequest request}) async {
     String params = _buildParams(request);
-    var response = await http.get(url);
+
+    Map<String, String> headers = {'Accept': 'application/vnd.github.v3+json'};
+
+    var response = await http.get('${url}${params}', headers: headers);
     _checkResponseStatus(response);
     var map = _decodeResponseBody(response);
     return GithubRepositoryList.fromJson(map);
@@ -22,7 +25,7 @@ class GithubRepository {
     String params = '';
     if (request != null) {
       params =
-          '?q=${request.query}&per_page=${request.per_page}&page=${request.page}';
+          '?${request.query.isNotEmpty ? 'q=${request.query}' : ''}&per_page=${request.per_page}&page=${request.page}';
     }
     return params;
   }
@@ -37,6 +40,9 @@ class GithubRepository {
     }
     if (statusCode == 503) {
       throw AppException('Service Unavailable');
+    }
+    if (statusCode == 404) {
+      throw AppException('Not Found');
     }
   }
 

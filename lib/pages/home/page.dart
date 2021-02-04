@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:github_repo/blocs/github_repository_list_cubit.dart';
+import 'package:github_repo/pages/github_repository_list/page.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -10,38 +13,74 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  TextEditingController controller;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    controller = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title.toUpperCase()),
+        iconTheme: IconThemeData(color: Colors.black),
+        centerTitle: true,
+        toolbarHeight: 50,
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            Container(
+              margin: EdgeInsets.only(left: 16, right: 16, top: 84),
+              height: 50,
+              child: TextFormField(
+                controller: controller,
+                decoration: InputDecoration(
+                    suffixIcon: Container(
+                      margin: EdgeInsets.only(right: 4, top: 4, bottom: 4),
+                      width: 100,
+                      height: 42,
+                      child: RaisedButton(
+                        color: Color.fromRGBO(88, 175, 255, 1),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            side: BorderSide.none),
+                        onPressed: () {
+                          var githubRepositoryListCubit =
+                              context.read<GithubRepositoryListCubit>();
+
+                          githubRepositoryListCubit
+                              .loadRepositoryList(controller.text);
+
+                          Navigator.of(context)
+                              .push(GithubRepositoryListPage.route());
+                        },
+                        child: Text(
+                          'Найти',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromRGBO(223, 223, 223, 1)),
+                        borderRadius: BorderRadius.circular(50)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromRGBO(223, 223, 223, 1)),
+                        borderRadius: BorderRadius.circular(50)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromRGBO(223, 223, 223, 1)),
+                        borderRadius: BorderRadius.circular(50))),
+              ),
+            )
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
