@@ -18,7 +18,8 @@ class GithubRepository {
     var response = await http.get('${url}${params}', headers: headers);
     _checkResponseStatus(response);
     var map = _decodeResponseBody(response);
-    return GithubRepositoryList.fromJson(map);
+    var list = GithubRepositoryList.fromJson(map);
+    return list;
   }
 
   String _buildParams(GithubRepositorySearchRequest request) {
@@ -43,6 +44,9 @@ class GithubRepository {
     }
     if (statusCode == 404) {
       throw AppException('Not Found');
+    }
+    if (statusCode == 403) {
+      throw AppException('Rate limit exceeded');
     }
   }
 

@@ -15,4 +15,5 @@ class GithubRepositoryList {
       _$GithubRepositoryListFromJson(json);
 
   Map toJson() => _$GithubRepositoryListToJson(this);
+
 }
