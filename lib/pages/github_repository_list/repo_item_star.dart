@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:github_repo/app_colors.dart';
 
 class RepoItemStar extends StatelessWidget {
   const RepoItemStar({Key key, this.stargazersCount}) : super(key: key);
@@ -13,7 +14,7 @@ class RepoItemStar extends StatelessWidget {
       ),
       padding: EdgeInsets.only(left: 7, right: 7),
       decoration: BoxDecoration(
-        color: Color.fromRGBO(166, 166, 166, 1),
+        color: AppColors.second_gray,
         borderRadius: BorderRadius.circular(50),
       ),
       child: Row(

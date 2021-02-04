@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:github_repo/app_colors.dart';
 import 'package:github_repo/blocs/github_repository_list_cubit.dart';
 import 'package:github_repo/pages/github_repository_list/page.dart';
 
@@ -45,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       width: 100,
                       height: 42,
                       child: RaisedButton(
-                        color: Color.fromRGBO(88, 175, 255, 1),
+                        color: AppColors.main_blue,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50),
                             side: BorderSide.none),
@@ -67,15 +68,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     border: OutlineInputBorder(
                         borderSide:
-                            BorderSide(color: Color.fromRGBO(223, 223, 223, 1)),
+                        BorderSide(color: AppColors.main_gray),
                         borderRadius: BorderRadius.circular(50)),
                     enabledBorder: OutlineInputBorder(
                         borderSide:
-                            BorderSide(color: Color.fromRGBO(223, 223, 223, 1)),
+                        BorderSide(color: AppColors.main_gray),
                         borderRadius: BorderRadius.circular(50)),
                     focusedBorder: OutlineInputBorder(
                         borderSide:
-                            BorderSide(color: Color.fromRGBO(223, 223, 223, 1)),
+                        BorderSide(color: AppColors.main_gray),
                         borderRadius: BorderRadius.circular(50))),
               ),
             )

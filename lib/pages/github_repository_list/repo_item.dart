@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:github_repo/app_colors.dart';
 import 'package:github_repo/pages/github_repository_list/repo_item_body.dart';
 import 'package:github_repo/pages/github_repository_list/repo_item_bottom.dart';
 import 'package:github_repo/pages/github_repository_list/repo_item_header.dart';
@@ -31,7 +32,7 @@ class RepoItem extends StatelessWidget {
       padding: EdgeInsets.only(left: 16, right: 16, top: 12),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Color.fromRGBO(223, 223, 223, 1))),
+          border: Border.all(color: AppColors.main_gray)),
       child: Column(children: [
         RepoItemHeader(stargazersCount: stargazersCount, name: name),
         Padding(padding: EdgeInsets.only(top: 4)),
