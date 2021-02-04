@@ -12,7 +12,9 @@ GithubRepositiryModel _$GithubRepositiryModelFromJson(Map json) {
     node_id: json['node_id'] as String,
     name: json['name'] as String,
     full_name: json['full_name'] as String,
-    owner: json['owner'],
+    owner: json['owner'] == null
+        ? null
+        : GithubUserModel.fromJson(json['owner'] as Map),
     private: json['private'] as bool,
     html_url: json['html_url'] as String,
     description: json['description'] as String,
@@ -22,6 +24,7 @@ GithubRepositiryModel _$GithubRepositiryModelFromJson(Map json) {
     updated_at: json['updated_at'] as String,
     pushed_at: json['pushed_at'] as String,
     homepage: json['homepage'] as String,
+    stargazers_count: json['stargazers_count'] as num,
     size: json['size'] as num,
   );
 }
@@ -33,7 +36,7 @@ Map<String, dynamic> _$GithubRepositiryModelToJson(
       'node_id': instance.node_id,
       'name': instance.name,
       'full_name': instance.full_name,
-      'owner': instance.owner,
+      'owner': instance.owner?.toJson(),
       'private': instance.private,
       'html_url': instance.html_url,
       'description': instance.description,
@@ -44,4 +47,5 @@ Map<String, dynamic> _$GithubRepositiryModelToJson(
       'pushed_at': instance.pushed_at,
       'homepage': instance.homepage,
       'size': instance.size,
+      'stargazers_count': instance.stargazers_count,
     };

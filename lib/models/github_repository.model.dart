@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'github_user.model.dart';
+
 part 'github_repository.model.g.dart';
 
 @JsonSerializable(nullable: true, explicitToJson: true, anyMap: true)
@@ -10,22 +12,23 @@ class GithubRepositiryModel {
       this.name,
       this.full_name,
       this.owner,
-      this.private,
-      this.html_url,
-      this.description,
-      this.fork,
-      this.url,
-      this.created_at,
-      this.updated_at,
-      this.pushed_at,
-      this.homepage,
-      this.size});
+    this.private,
+    this.html_url,
+    this.description,
+    this.fork,
+    this.url,
+    this.created_at,
+    this.updated_at,
+    this.pushed_at,
+    this.homepage,
+    this.stargazers_count,
+    this.size});
 
   final num id;
   final String node_id;
   final String name;
   final String full_name;
-  final dynamic owner;
+  final GithubUserModel owner;
   final bool private;
   final String html_url;
   final String description;
@@ -36,6 +39,7 @@ class GithubRepositiryModel {
   final String pushed_at;
   final String homepage;
   final num size;
+  final num stargazers_count;
 
   factory GithubRepositiryModel.fromJson(Map json) =>
       _$GithubRepositiryModelFromJson(json);
